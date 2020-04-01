@@ -111,108 +111,6 @@
     
 
     
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <h2 id="使用github-pages服务搭建博客的好处有："><a href="#使用github-pages服务搭建博客的好处有：" class="headerlink" title="使用github pages服务搭建博客的好处有："></a>使用github pages服务搭建博客的好处有：</h2><ol>
-<li>全是静态文件，访问速度快；</li>
-<li>免费方便，不用花一分钱就可以搭建一个自由的个人博客，不需要服务器不需要后台；</li>
-<li>可以随意绑定自己的域名，不仔细看的话根本看不出来你的网站是基于github的；</li>
-<li>数据绝对安全，基于github的版本管理，想恢复到哪个历史版本都行； 博客内容可以轻松打包、转移、发布到其它平台；</li>
-</ol>
-<h2 id="1-1-准备工作"><a href="#1-1-准备工作" class="headerlink" title="1.1. 准备工作"></a>1.1. 准备工作</h2><p>在开始一切之前，你必须已经：</p>
-<ol>
-<li>有一个github账号，没有的话去注册一个；</li>
-<li>安装了node.js、npm，并了解相关基础知识；</li>
-<li>安装了git for windows（或者其它git客户端）</li>
-</ol>
-<h3 id="本文所使用的环境："><a href="#本文所使用的环境：" class="headerlink" title="本文所使用的环境："></a>本文所使用的环境：</h3><ol>
-<li>Windows10</li>
-<li><a href="mailto:node.js@5.5.0">node.js@5.5.0</a></li>
-<li><a href="mailto:git@1.9.2">git@1.9.2</a></li>
-<li><a href="mailto:hexo@3.2.2">hexo@3.2.2</a></li>
-</ol>
-<h1 id="搭建github博客"><a href="#搭建github博客" class="headerlink" title="搭建github博客"></a>搭建github博客</h1><h2 id="2-1-创建仓库"><a href="#2-1-创建仓库" class="headerlink" title="2.1. 创建仓库"></a>2.1. 创建仓库</h2><p>新建一个名为<code>你的用户名.github.io</code>的仓库，比如说，如果你的github用户名是test，那么你就新建<code>test.github.io</code>的仓库（<strong>必须是你的用户名，其它名称无效</strong>），将来你的网站访问地址就是 <code>http://test.github.io</code> 了，是不是很方便？</p>
-<p>由此可见，每一个github账户最多只能创建一个这样可以直接使用域名访问的仓库。</p>
-<h5 id="几个注意的地方："><a href="#几个注意的地方：" class="headerlink" title="几个注意的地方："></a>几个注意的地方：</h5><ul>
-<li>注册的邮箱一定要验证，否则不会成功；</li>
-<li>仓库名字必须是：username.github.io，其中username是你的用户名；</li>
-<li>仓库创建成功不会立即生效，需要过一段时间，大概10-30分钟，或者更久，我的等了半个小时才生效；</li>
-<li>创建成功后，默认会在你这个仓库里生成一些示例页面，以后你的网站所有代码都是放在这个仓库里啦。</li>
-</ul>
-<h2 id="2-2-绑定域名"><a href="#2-2-绑定域名" class="headerlink" title="2.2. 绑定域名"></a>2.2. 绑定域名</h2><p>当然，你不绑定域名肯定也是可以的，就用默认的 <code>xxx.github.io</code> 来访问，如果你想更个性一点，想拥有一个属于自己的域名，那也是OK的。</p>
-<p>首先你要注册一个域名，域名注册以前总是推荐去godaddy，现在觉得其实国内的阿里云也挺不错的，价格也不贵，毕竟是大公司，放心！</p>
-<p><strong>绑定域名分2种情况：带www和不带www的。</strong></p>
-<p>域名配置最常见有2种方式，CNAME和A记录，CNAME填写域名，A记录填写IP，由于不带www方式只能采用A记录，所以必须先ping一下你的用户名.github.io的IP，然后到你的域名DNS设置页，将A记录指向你ping出来的IP，将CNAME指向你的用户名.github.io，这样可以保证无论是否添加www都可以访问，如下：</p>
-<p>然后到你的github项目根目录新建一个名为CNAME的文件（无后缀），里面填写你的域名，加不加www看你自己喜好，因为经测试：</p>
-<p>如果你填写的是没有www的，比如 mygit.me，那么无论是访问 <a href="http://www.mygit.me" target="_blank" rel="noopener">http://www.mygit.me</a> 还是 <a href="http://mygit.me" target="_blank" rel="noopener">http://mygit.me</a> ，都会自动跳转到 <a href="http://mygit.me" target="_blank" rel="noopener">http://mygit.me</a><br>如果你填写的是带www的，比如 <a href="http://www.mygit.me" target="_blank" rel="noopener">www.mygit.me</a> ，那么无论是访问 <a href="http://www.mygit.me" target="_blank" rel="noopener">http://www.mygit.me</a> 还是 <a href="http://mygit.me" target="_blank" rel="noopener">http://mygit.me</a> ，都会自动跳转到 <a href="http://www.mygit.me" target="_blank" rel="noopener">http://www.mygit.me</a><br>如果你填写的是其它子域名，比如 abc.mygit.me，那么访问 <a href="http://abc.mygit.me" target="_blank" rel="noopener">http://abc.mygit.me</a> 没问题，但是访问 <a href="http://mygit.me" target="_blank" rel="noopener">http://mygit.me</a> ，不会自动跳转到 <a href="http://abc.mygit.me" target="_blank" rel="noopener">http://abc.mygit.me</a><br>另外说一句，在你绑定了新域名之后，原来的你的用户名.github.io并没有失效，而是会自动跳转到你的新域名。</p>
-<p>配置SSH key<br>为什么要配置这个呢？因为你提交代码肯定要拥有你的github权限才可以，但是直接使用用户名和密码太不安全了，所以我们使用ssh key来解决本地和服务器的连接问题。</p>
-<p>$ cd ~/. ssh #检查本机已存在的ssh密钥<br>如果提示：No such file or directory 说明你是第一次使用git。</p>
-<p>ssh-keygen -t rsa -C “邮件地址”<br>然后连续3次回车，最终会生成一个文件在用户目录下，打开用户目录，找到.ssh\id_rsa.pub文件，记事本打开并复制里面的内容，打开你的github主页，进入个人设置 -&gt; SSH and GPG keys -&gt; New SSH key：</p>
-<p>将刚复制的内容粘贴到key那里，title随便填，保存。</p>
-<h2 id="3-1-测试是否成功"><a href="#3-1-测试是否成功" class="headerlink" title="3.1. 测试是否成功"></a>3.1. 测试是否成功</h2><p>$ ssh -T <a href="mailto:git@github.com">git@github.com</a> # 注意邮箱地址不用改<br>如果提示Are you sure you want to continue connecting (yes/no)?，输入yes，然后会看到：</p>
-<p>Hi liuxianan! You’ve successfully authenticated, but GitHub does not provide shell access.</p>
-<p>看到这个信息说明SSH已配置成功！</p>
-<p>此时你还需要配置：</p>
-<p>$ git config –global user.name “liuxianan”// 你的github用户名，非昵称<br>$ git config –global user.email  “<a href="mailto:xxx@qq.com">xxx@qq.com</a>“// 填写你的github注册邮箱<br>具体这个配置是干嘛的我没仔细深究。</p>
-<p>使用hexo写博客</p>
-<h2 id="4-1-hexo简介"><a href="#4-1-hexo简介" class="headerlink" title="4.1. hexo简介"></a>4.1. hexo简介</h2><p>Hexo是一个简单、快速、强大的基于 Github Pages 的博客发布工具，支持Markdown格式，有众多优秀插件和主题。</p>
-<p>官网： <a href="http://hexo.io" target="_blank" rel="noopener">http://hexo.io</a><br>github: <a href="https://github.com/hexojs/hexo" target="_blank" rel="noopener">https://github.com/hexojs/hexo</a></p>
-<h2 id="4-2-原理"><a href="#4-2-原理" class="headerlink" title="4.2. 原理"></a>4.2. 原理</h2><p>由于github pages存放的都是静态文件，博客存放的不只是文章内容，还有文章列表、分类、标签、翻页等动态内容，假如每次写完一篇文章都要手动更新博文目录和相关链接信息，相信谁都会疯掉，所以hexo所做的就是将这些md文件都放在本地，每次写完文章后调用写好的命令来批量完成相关页面的生成，然后再将有改动的页面提交到github。</p>
-<h2 id="4-3-注意事项"><a href="#4-3-注意事项" class="headerlink" title="4.3. 注意事项"></a>4.3. 注意事项</h2><p>安装之前先来说几个注意事项：</p>
-<p>很多命令既可以用Windows的cmd来完成，也可以使用git bash来完成，但是部分命令会有一些问题，为避免不必要的问题，建议全部使用git bash来执行；<br>hexo不同版本差别比较大，网上很多文章的配置信息都是基于2.x的，所以注意不要被误导；<br>hexo有2种_config.yml文件，一个是根目录下的全局的_config.yml，一个是各个theme下的；<br>4.4. 安装<br>$ npm install -g hexo<br>4.5. 初始化<br>在电脑的某个地方新建一个名为hexo的文件夹（名字可以随便取），比如我的是F:\Workspaces\hexo，由于这个文件夹将来就作为你存放代码的地方，所以最好不要随便放。</p>
-<p>$ cd /f/Workspaces/hexo/<br>$ hexo init<br>hexo会自动下载一些文件到这个目录，包括node_modules，目录结构如下图：</p>
-<p>$ hexo g # 生成<br>$ hexo s # 启动服务<br>执行以上命令之后，hexo就会在public文件夹生成相关html文件，这些文件将来都是要提交到github去的：</p>
-<p>hexo s是开启本地预览服务，打开浏览器访问 <a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a> 即可看到内容，很多人会碰到浏览器一直在转圈但是就是加载不出来的问题，一般情况下是因为端口占用的缘故，因为4000这个端口太常见了，解决端口冲突问题请参考这篇文章：</p>
-<p><a href="http://blog.liuxianan.com/windows-port-bind.html" target="_blank" rel="noopener">http://blog.liuxianan.com/windows-port-bind.html</a></p>
-<p>第一次初始化的时候hexo已经帮我们写了一篇名为 Hello World 的文章，默认的主题比较丑，打开时就是这个样子：</p>
-<h2 id="4-6-修改主题"><a href="#4-6-修改主题" class="headerlink" title="4.6. 修改主题"></a>4.6. 修改主题</h2><p>既然默认主题很丑，那我们别的不做，首先来替换一个好看点的主题。这是 官方主题。</p>
-<p>个人比较喜欢的2个主题：hexo-theme-jekyll 和 hexo-theme-yilia。</p>
-<p>首先下载这个主题：</p>
-<p>$ cd /f/Workspaces/hexo/<br>$ git clone <a href="https://github.com/litten/hexo-theme-yilia.git" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia.git</a> themes/yilia<br>下载后的主题都在这里：</p>
-<p>修改_config.yml中的theme: landscape改为theme: yilia，然后重新执行hexo g来重新生成。</p>
-<p>如果出现一些莫名其妙的问题，可以先执行hexo clean来清理一下public的内容，然后再来重新生成和发布。</p>
-<h2 id="4-7-上传之前"><a href="#4-7-上传之前" class="headerlink" title="4.7. 上传之前"></a>4.7. 上传之前</h2><p>在上传代码到github之前，一定要记得先把你以前所有代码下载下来（虽然github有版本管理，但备份一下总是好的），因为从hexo提交代码时会把你以前的所有代码都删掉。</p>
-<h2 id="4-8-上传到github"><a href="#4-8-上传到github" class="headerlink" title="4.8. 上传到github"></a>4.8. 上传到github</h2><p>如果你一切都配置好了，发布上传很容易，一句hexo d就搞定，当然关键还是你要把所有东西配置好。</p>
-<p>首先，ssh key肯定要配置好。</p>
-<p>其次，配置_config.yml中有关deploy的部分：</p>
-<p>正确写法：</p>
-<p>deploy:<br>  type: git<br>  repository: <a href="mailto:git@github.com">git@github.com</a>:liuxianan/liuxianan.github.io.git<br>  branch: master<br>错误写法：</p>
-<p>deploy:<br>  type: github<br>  repository: <a href="https://github.com/liuxianan/liuxianan.github.io.git" target="_blank" rel="noopener">https://github.com/liuxianan/liuxianan.github.io.git</a><br>  branch: master<br>后面一种写法是hexo2.x的写法，现在已经不行了，无论是哪种写法，此时直接执行hexo d的话一般会报如下错误：</p>
-<p>Deployer not found: github 或者 Deployer not found: git<br>原因是还需要安装一个插件：</p>
-<p>npm install hexo-deployer-git –save<br>其它命令不确定，部署这个命令一定要用git bash，否则会提示Permission denied (publickey).</p>
-<p>打开你的git bash，输入hexo d就会将本次有改动的代码全部提交，没有改动的不会：</p>
-<h2 id="4-9-保留CNAME、README-md等文件"><a href="#4-9-保留CNAME、README-md等文件" class="headerlink" title="4.9. 保留CNAME、README.md等文件"></a>4.9. 保留CNAME、README.md等文件</h2><p>提交之后网页上一看，发现以前其它代码都没了，此时不要慌，一些非md文件可以把他们放到source文件夹下，这里的所有文件都会原样复制（除了md文件）到public目录的：</p>
-<p>由于hexo默认会把所有md文件都转换成html，包括README.md，所有需要每次生成之后、上传之前，手动将README.md复制到public目录，并删除README.html。</p>
-<h2 id="4-10-常用hexo命令"><a href="#4-10-常用hexo命令" class="headerlink" title="4.10. 常用hexo命令"></a>4.10. 常用hexo命令</h2><p>常见命令</p>
-<p>hexo new “postName” #新建文章<br>hexo new page “pageName” #新建页面<br>hexo generate #生成静态页面至public目录<br>hexo server #开启预览访问端口（默认端口4000，’ctrl + c’关闭server）<br>hexo deploy #部署到GitHub<br>hexo help  # 查看帮助<br>hexo version  #查看Hexo的版本<br>缩写：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">exo n == hexo new</span><br><span class="line">hexo g == hexo generate</span><br><span class="line">hexo s == hexo server</span><br><span class="line">hexo d == hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>组合命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo s -g <span class="comment">#生成并本地预览</span></span><br><span class="line">hexo d -g <span class="comment">#生成并上传</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="4-11-config-yml"><a href="#4-11-config-yml" class="headerlink" title="4.11. _config.yml"></a>4.11. _config.yml</h2><p>这里面都是一些全局配置，每个参数的意思都比较简单明了，所以就不作详细介绍了。</p>
-<p>需要特别注意的地方是，冒号后面必须有一个空格，否则可能会出问题。</p>
-<h2 id="4-12-写博客"><a href="#4-12-写博客" class="headerlink" title="4.12. 写博客"></a>4.12. 写博客</h2><p>定位到我们的hexo根目录，执行命令：</p>
-<p>hexo new ‘my-first-blog’<br>hexo会帮我们在_posts下生成相关md文件：</p>
-<p>我们只需要打开这个文件就可以开始写博客了，默认生成如下内容：</p>
-<p>当然你也可以直接自己新建md文件，用这个命令的好处是帮我们自动生成了时间。</p>
-<p>一般完整格式如下：</p>
-<hr>
-<p>title: postName #文章页面上的显示名称，一般是中文<br>date: 2013-12-02 15:30:16 #文章生成时间，一般不改，当然也可以任意修改<br>categories: 默认分类 #分类<br>tags: [tag1,tag2,tag3] #文章标签，可空，多标签请用格式，注意:后面有个空格<br>description: 附加一段文章摘要，字数最好在140字以内，会出现在meta的description里面</p>
-<hr>
-<p>以下是正文</p>
-<p>那么hexo new page ‘postName’命令和hexo new ‘postName’有什么区别呢？</p>
-<p>hexo new page “my-second-blog”<br>生成如下：</p>
-<p>最终部署时生成：hexo\public\my-second-blog\index.html，但是它不会作为文章出现在博文目录。</p>
-<p>4.12.1. 写博客工具<br>那么用什么工具写博客呢？这个我还没去找，以前自己使用editor.md简单弄了个，大家有好用的hexo写博客工具可以推荐个。</p>
-
-      
-      <!-- reward -->
-      
-    </div>
     
     
       <!-- copyright -->
@@ -272,40 +170,6 @@
     
 
     
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <h2 id="1：添加-关于页面"><a href="#1：添加-关于页面" class="headerlink" title="1：添加 关于页面"></a>1：添加 关于页面</h2><p>使用：hexo new page “about” 新建一个 关于我 页面。<br>主题的 _config.yml 文件中的 menu 中进行匹配</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line"> home: &#x2F;      &#x2F;&#x2F;主页</span><br><span class="line"> categories: &#x2F;categories &#x2F;&#x2F;分类</span><br><span class="line"> archives: &#x2F;archives   &#x2F;&#x2F;归档</span><br><span class="line"> tags: &#x2F;tags   &#x2F;&#x2F;标签</span><br><span class="line"> about: &#x2F;about   &#x2F;&#x2F;关于                  （添加此行即可）</span><br></pre></td></tr></table></figure>
-
-<p>编辑 about 关于页面 md文件 部署就能看到</p>
-<h2 id="2：添加-标签页面"><a href="#2：添加-标签页面" class="headerlink" title="2：添加 标签页面"></a>2：添加 标签页面</h2><p>使用： hexo new page tags 新建一个 标签 页面。<br>主题的 _config.yml 文件中的 menu 中进行匹配</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: &#x2F;      &#x2F;&#x2F;主页</span><br><span class="line">  categories: &#x2F;categories &#x2F;&#x2F;分类</span><br><span class="line">  archives: &#x2F;archives   &#x2F;&#x2F;归档</span><br><span class="line">  tags: &#x2F;tags   &#x2F;&#x2F;标签                  （添加此行即可）</span><br><span class="line">  about: &#x2F;about   &#x2F;&#x2F;关于</span><br></pre></td></tr></table></figure>
-
-<p>底下代码是一篇包含 标签 文章的例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">title: 标签测试</span><br><span class="line">tags:</span><br><span class="line">  - Testing                   （这个就是文章的标签了）</span><br><span class="line">  - Another Tag               （这个就是文章的标签了）</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-
-<h2 id="3：添加-分类页面"><a href="#3：添加-分类页面" class="headerlink" title="3：添加 分类页面"></a>3：添加 分类页面</h2><p>使用： hexo new page categories 新建一个 分类 页面。<br>主题的 _config.yml 文件中的 menu 中进行匹配</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: &#x2F;      &#x2F;&#x2F;主页</span><br><span class="line">  categories: &#x2F;categories &#x2F;&#x2F;分类        （添加此行即可）</span><br><span class="line">  archives: &#x2F;archives   &#x2F;&#x2F;归档</span><br><span class="line">  tags: &#x2F;tags   &#x2F;&#x2F;标签                  </span><br><span class="line">  about: &#x2F;about   &#x2F;&#x2F;关于</span><br></pre></td></tr></table></figure>
-
-<p>底下代码是一篇包含 分类 文章的例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">title: 分类测试</span><br><span class="line">categories:</span><br><span class="line">- hexo                       （这个就是文章的分类了）</span><br></pre></td></tr></table></figure>
-
-<h2 id="4：添加-归档页面"><a href="#4：添加-归档页面" class="headerlink" title="4：添加 归档页面"></a>4：添加 归档页面</h2><p>主题的 _config.yml 文件中的 menu 中进行匹配</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: &#x2F;      &#x2F;&#x2F;主页</span><br><span class="line">  categories: &#x2F;categories &#x2F;&#x2F;分类        </span><br><span class="line">  archives: &#x2F;archives   &#x2F;&#x2F;归档             （添加此行即可）</span><br><span class="line">  tags: &#x2F;tags   &#x2F;&#x2F;标签                  </span><br><span class="line">  about: &#x2F;about   &#x2F;&#x2F;关于</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="5：添加-自定义页面"><a href="#5：添加-自定义页面" class="headerlink" title="5：添加 自定义页面"></a>5：添加 自定义页面</h2><p>使用： hexo new page “guestbook” 新建一个 自定义 页面。<br>主题的 _config.yml 文件中的 menu 中进行匹配</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: &#x2F;      &#x2F;&#x2F;主页</span><br><span class="line">  categories: &#x2F;categories &#x2F;&#x2F;分类        </span><br><span class="line">  archives: &#x2F;archives   &#x2F;&#x2F;归档   </span><br><span class="line">  tags: &#x2F;tags   &#x2F;&#x2F;标签                  </span><br><span class="line">  about: &#x2F;about   &#x2F;&#x2F;关于</span><br><span class="line">  guestbook: &#x2F;guestbook    &#x2F;&#x2F;自定义             （添加此行即可）</span><br><span class="line">————————————————</span><br></pre></td></tr></table></figure>
-
-<p>版权声明：本文为CSDN博主「阿甘的博客」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a href="https://blog.csdn.net/ganzhilin520/article/details/79047249" target="_blank" rel="noopener">https://blog.csdn.net/ganzhilin520/article/details/79047249</a></p>
-
-      
-      <!-- reward -->
-      
-    </div>
     
     
       <!-- copyright -->
@@ -365,42 +229,6 @@
     
 
     
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <h1 id="开发环境配置"><a href="#开发环境配置" class="headerlink" title="开发环境配置"></a>开发环境配置</h1><p>搭建Java开发环境一般需要同时安装JDK和JRE。<br>      JDK：指Java开发工具包Java Development Kit，开发Java程序时必需，JDK里包含一部分公共JRE。<br>　 JRE：一个Java运行环境Java Runtime Environment，运行已开发的Java程序时所用。</p>
-<h3 id="下载JDK"><a href="#下载JDK" class="headerlink" title="下载JDK"></a>下载JDK</h3><p> <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">JDK下载链接</a><br><img src="https://img-blog.csdnimg.cn/20200207142921152.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MDgxNDkw,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>  <img src="https://img-blog.csdnimg.cn/20200207142948342.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MDgxNDkw,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>     这里有==Windows x86==（32位）、==Windows x64==（64位）两个版本可以选择。根据Windows系统版本选着合适的版本下载安装。</p>
-<h3 id="安装JDK"><a href="#安装JDK" class="headerlink" title="安装JDK"></a>安装JDK</h3><h4 id="1、双击打开保存好的JDK文件"><a href="#1、双击打开保存好的JDK文件" class="headerlink" title="1、双击打开保存好的JDK文件"></a>1、双击打开保存好的JDK文件</h4><p> <img src="https://img-blog.csdnimg.cn/20200207143131715.png" alt=" "></p>
-<h4 id="2、点击-下一步"><a href="#2、点击-下一步" class="headerlink" title="2、点击 下一步"></a>2、点击 下一步</h4><p><img src="https://img-blog.csdnimg.cn/20200207143340534.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MDgxNDkw,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h4 id="4、选择JDK的安装路径"><a href="#4、选择JDK的安装路径" class="headerlink" title="4、选择JDK的安装路径"></a>4、选择JDK的安装路径</h4><p>（此处的安装目录是jdk的安装路径，可以自定义安装，也可以安装到默认目录，==安装路径不要有中文==，选好后点击下一步）<br><img src="https://img-blog.csdnimg.cn/20200207143438491.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MDgxNDkw,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h4 id="5、JRE安装"><a href="#5、JRE安装" class="headerlink" title="5、JRE安装"></a>5、JRE安装</h4><p>   ** 等待上面jdk安装进度完成后便进入jre的安装。**<br>   同样选择JRE的安装路径，（==安装路径不能出现中文==）<br>   <img src="https://img-blog.csdnimg.cn/20200207144548359.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MDgxNDkw,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/2020020714462237.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MDgxNDkw,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h3 id="环境变量配置"><a href="#环境变量配置" class="headerlink" title="环境变量配置"></a>环境变量配置</h3><h4 id="1、右键单击我的电脑—–点击–属性"><a href="#1、右键单击我的电脑—–点击–属性" class="headerlink" title="1、右键单击我的电脑—–点击–属性"></a>1、右键单击我的电脑—–点击–<strong>属性</strong></h4><p><img src="https://img-blog.csdnimg.cn/2020020714520874.png" alt="在这里插入图片描述"></p>
-<h4 id="2、点击左侧的高级系统设置"><a href="#2、点击左侧的高级系统设置" class="headerlink" title="2、点击左侧的高级系统设置"></a>2、点击左侧的<strong>高级系统设置</strong></h4><h4 id="3、在新窗口中点击环境变量"><a href="#3、在新窗口中点击环境变量" class="headerlink" title="3、在新窗口中点击环境变量"></a>3、在新窗口中点击<strong>环境变量</strong></h4><p><img src="https://img-blog.csdnimg.cn/20200207145227220.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MDgxNDkw,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h4 id="4、新建JAVA-HOME-系统变量（如果已经存在则点击编辑）"><a href="#4、新建JAVA-HOME-系统变量（如果已经存在则点击编辑）" class="headerlink" title="4、新建JAVA_HOME 系统变量（如果已经存在则点击编辑）"></a>4、新建JAVA_HOME 系统变量（如果已经存在则点击编辑）</h4><pre><code>在**系统变量**的窗格内点击**新建变量**
-**变量名：**： JAVA_HOME 
-**变量值：**     为jdk安装路径</code></pre><p><img src="https://img-blog.csdnimg.cn/2020020715254299.png" alt="在这里插入图片描述"></p>
-<h4 id="5、系统变量中找到path变量"><a href="#5、系统变量中找到path变量" class="headerlink" title="5、系统变量中找到path变量"></a>5、系统变量中找到path变量</h4><pre><code>path内新建    **%JAVA_HOME%\bin;** **%JAVA_HOME%\jre\bin;**</code></pre><p><img src="https://img-blog.csdnimg.cn/20200207151409781.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MDgxNDkw,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h4 id="6、配置CLASSPATH"><a href="#6、配置CLASSPATH" class="headerlink" title="6、配置CLASSPATH"></a>6、配置CLASSPATH</h4><p>: .;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;<br><img src="https://img-blog.csdnimg.cn/20200207151736960.png" alt="在这里插入图片描述"></p>
-<h3 id="验证安装是否成功"><a href="#验证安装是否成功" class="headerlink" title="验证安装是否成功"></a>验证安装是否成功</h3><h5 id="1、Alt-R-输入cmd"><a href="#1、Alt-R-输入cmd" class="headerlink" title="1、Alt+R 输入cmd"></a>1、Alt+R 输入cmd</h5><p>   <img src="https://img-blog.csdnimg.cn/20200207152821880.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MDgxNDkw,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h5 id="2、在弹出的程序框内输入-java-、javac、"><a href="#2、在弹出的程序框内输入-java-、javac、" class="headerlink" title="2、在弹出的程序框内输入==java==、javac、"></a>2、在弹出的程序框内输入==java==、javac、</h5><p><img src="https://img-blog.csdnimg.cn/2020020715295349.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MDgxNDkw,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h5 id="3、出现以下界面，即说明jkd安装成功。"><a href="#3、出现以下界面，即说明jkd安装成功。" class="headerlink" title="3、出现以下界面，即说明jkd安装成功。"></a>3、出现以下界面，即说明jkd安装成功。</h5><p><img src="https://img-blog.csdnimg.cn/20200207153125165.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MDgxNDkw,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h1 id="Eclipse安装"><a href="#Eclipse安装" class="headerlink" title="Eclipse安装"></a>Eclipse安装</h1><h3 id="Eclipse下载"><a href="#Eclipse下载" class="headerlink" title="Eclipse下载"></a>Eclipse下载</h3><p>   <a href="https://www.eclipse.org/" target="_blank" rel="noopener">eclipse的官方网站</a></p>
-<h4 id="1、登陆eclipse官网后，点击右上方黄色下载按钮。"><a href="#1、登陆eclipse官网后，点击右上方黄色下载按钮。" class="headerlink" title="1、登陆eclipse官网后，点击右上方黄色下载按钮。"></a>1、登陆eclipse官网后，点击右上方黄色下载按钮。</h4><p>  <img src="https://img-blog.csdnimg.cn/2020020715400912.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MDgxNDkw,size_16,color_FFFFFF,t_70" alt="在这里插入图描述"></p>
-<h4 id="2、看到此界面后不要着急点下载按钮，注意看，黄色按钮下方还有一行字母、不是点击黄色按钮，是点击下方的Download-Packages。"><a href="#2、看到此界面后不要着急点下载按钮，注意看，黄色按钮下方还有一行字母、不是点击黄色按钮，是点击下方的Download-Packages。" class="headerlink" title="2、看到此界面后不要着急点下载按钮，注意看，黄色按钮下方还有一行字母、不是点击黄色按钮，是点击下方的Download Packages。"></a>2、看到此界面后不要着急点下载按钮，注意看，黄色按钮下方还有一行字母、不是点击黄色按钮，是点击下方的Download Packages。</h4><p><img src="https://img-blog.csdnimg.cn/20200207154111149.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MDgxNDkw,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/2020020715413270.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MDgxNDkw,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h4 id="3、点击下载此版本，（选择64bit）"><a href="#3、点击下载此版本，（选择64bit）" class="headerlink" title="3、点击下载此版本，（选择64bit）"></a>3、点击下载此版本，（选择64bit）</h4><p><img src="https://img-blog.csdnimg.cn/20200207154301535.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MDgxNDkw,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p><img src="https://img-blog.csdnimg.cn/20200207154416828.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MDgxNDkw,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h4 id="4、下载完成后加压"><a href="#4、下载完成后加压" class="headerlink" title="4、下载完成后加压"></a>4、下载完成后加压</h4><p><img src="https://img-blog.csdnimg.cn/20200207154523800.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MDgxNDkw,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200207154554754.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MDgxNDkw,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h4 id="5、双击打开"><a href="#5、双击打开" class="headerlink" title="5、双击打开"></a>5、双击打开</h4><p><img src="https://img-blog.csdnimg.cn/20200207154703795.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MDgxNDkw,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h1 id="常见问题及解决办法"><a href="#常见问题及解决办法" class="headerlink" title="常见问题及解决办法"></a>常见问题及解决办法</h1><h2 id="1、打开Eclipse出现以下弹窗说明编辑器版本与JDK版本不匹配日，请检查是否同为64或32位版本"><a href="#1、打开Eclipse出现以下弹窗说明编辑器版本与JDK版本不匹配日，请检查是否同为64或32位版本" class="headerlink" title="1、打开Eclipse出现以下弹窗说明编辑器版本与JDK版本不匹配日，请检查是否同为64或32位版本"></a>1、打开Eclipse出现以下弹窗说明编辑器版本与JDK版本不匹配日，请检查是否同为64或32位版本</h2><p><img src="https://img-blog.csdnimg.cn/20200207155112549.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MDgxNDkw,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h3 id="2、出现一下弹窗说明开发环境没有配置成功。"><a href="#2、出现一下弹窗说明开发环境没有配置成功。" class="headerlink" title="2、出现一下弹窗说明开发环境没有配置成功。"></a>2、出现一下弹窗说明开发环境没有配置成功。</h3><p>请安上述步骤安装配置Java开发环境。<br><img src="https://img-blog.csdnimg.cn/20200207155659555.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MDgxNDkw,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h1 id="在Cloud-Studio中运行Java程序"><a href="#在Cloud-Studio中运行Java程序" class="headerlink" title="在Cloud Studio中运行Java程序"></a>在Cloud Studio中运行Java程序</h1><p>   Java是一种跨平台的编程语言，想要让你的计算机能够运行Java程序那么就需要安装JRE,而想要开发Java程序，那么就需要安装JDK。这对新手来说可能有些复杂、安装配置的过程中可能会遇到一些问题。对于老手来说，有些时候可能会面临在一台陌生的(配置没有Java环境)计算机下临时开发、调试代码。因此，这里推荐基于腾讯云主机的在线云端开发工具Cloud Studio来快速开始你的Java项目。<br>   网址：<a href="https://studio.dev.tencent.com/" target="_blank" rel="noopener">https://studio.dev.tencent.com/</a></p>
-
-      
-      <!-- reward -->
-      
-    </div>
     
     
       <!-- copyright -->
